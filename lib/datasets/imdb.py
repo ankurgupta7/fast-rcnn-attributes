@@ -167,8 +167,12 @@ class imdb(object):
                 argmaxes = gt_overlaps.argmax(axis=1)
                 maxes = gt_overlaps.max(axis=1)
                 I = np.where(maxes > 0)[0]
-                overlaps[I, gt_classes[argmaxes[I]]] = maxes[I]
-
+                # overlaps[I, gt_classes[argmaxes[I]]] = maxes[I]
+            # print '####'
+            # print gt_boxes
+            # print gt_classes
+            # print gt_overlaps
+            # print '####'
             overlaps = scipy.sparse.csr_matrix(overlaps)
             roidb.append({'boxes' : boxes,
                           'gt_classes' : np.zeros((num_boxes,),
@@ -182,6 +186,8 @@ class imdb(object):
         assert len(a) == len(b)
         for i in xrange(len(a)):
             a[i]['boxes'] = np.vstack((a[i]['boxes'], b[i]['boxes']))
+            print b[i]['gt_classes']
+            print a[i]['gt_classes']
             a[i]['gt_classes'] = np.hstack((a[i]['gt_classes'],
                                             b[i]['gt_classes']))
             a[i]['gt_overlaps'] = scipy.sparse.vstack([a[i]['gt_overlaps'],
