@@ -175,7 +175,7 @@ class imdb(object):
             # print '####'
             overlaps = scipy.sparse.csr_matrix(overlaps)
             roidb.append({'boxes' : boxes,
-                          'gt_classes' : np.zeros((num_boxes,),
+                          'gt_classes' : np.zeros((gt_classes.shape),
                                                   dtype=np.int32),
                           'gt_overlaps' : overlaps,
                           'flipped' : False})

@@ -228,8 +228,8 @@ class attributes(imdb):
             entries.append((minx, miny, maxx, maxy, S[4:]))
         ifs.close()
         num_objs = len(entries)
-        boxes = np.zeros((num_gt_classes,4),dtype=np.uint16)
-        gt_classes = np.zeros(num_gt_classes, dtype=np.int32)
+        boxes = np.zeros((num_objs,4),dtype=np.uint16)
+        gt_classes = np.zeros((num_objs, self.num_classes), dtype=np.int32)
         overlaps = np.zeros((num_objs, self.num_classes),dtype=np.float32)
 
         ix = 0
@@ -238,7 +238,7 @@ class attributes(imdb):
             # label_str
             for label in label_str:
                 cls = self._class_to_ind[label]
-                gt_classes[ix]= cls
+                gt_classes[i,cls]= 1.0
                 overlaps[i,cls] = 1.0
                 ix += 1
             boxes[i,:] = [entries[i][0],entries[i][1],entries[i][2],entries[i][3]]
@@ -246,9 +246,9 @@ class attributes(imdb):
         print '''
         !@#$@%#^&*^^%$#
         '''
-        print overlaps
+        print gt_classes
         return {'boxes' : boxes,
-                'gt_classes': overlaps,
+                'gt_classes': gt_classes,
                 'gt_overlaps' : overlaps,
                 'flipped' : False}
 

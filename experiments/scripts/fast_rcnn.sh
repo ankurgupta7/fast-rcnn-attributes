@@ -22,6 +22,7 @@ len=${#array[@]}
 EXTRA_ARGS=${array[@]:3:$len}
 EXTRA_ARGS_SLUG=${EXTRA_ARGS// /_}
 
+echo $GPU_ID
 case $DATASET in
   attributes)
     TRAIN_IMDB="attributes_train"
@@ -51,7 +52,7 @@ LOG="experiments/logs/fast_rcnn_${NET}_${EXTRA_ARGS_SLUG}.txt.`date +'%Y-%m-%d_%
 exec &> >(tee -a "$LOG")
 echo Logging output to "$LOG"
 
-time ./tools/train_net.py \
+time ./tools/train_net.py --gpu $1 \
   --solver models/${PT_DIR}/${NET}/fast_rcnn/solver.prototxt \
   --weights data/imagenet_models/${NET}.v2.caffemodel \
   --imdb ${TRAIN_IMDB} \
@@ -62,7 +63,7 @@ set +x
 NET_FINAL=`grep -B 1 "done solving" ${LOG} | grep "Wrote snapshot" | awk '{print $4}'`
 set -x
 
-time ./tools/test_net.py --gpu ${GPU_ID} \
+time ./tools/test_net.py --gpu $1 \
   --def models/${PT_DIR}/${NET}/fast_rcnn/test.prototxt \
   --net ${NET_FINAL} \
   --imdb ${TEST_IMDB} \
