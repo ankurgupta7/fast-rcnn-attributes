@@ -281,8 +281,10 @@ def test_net(net, imdb):
 
         _t['misc'].tic()
         for j in xrange(1, imdb.num_classes):
-            inds = np.where((scores[:, j] > thresh[j]) &
-                            (roidb[i]['gt_classes'] == 0))[0]
+            # import pdb
+            # pdb.set_trace()
+            inds = np.where((scores[:, j] > thresh[j]))[0] #&
+                            # (roidb[i]['gt_classes'][:, j] == 0))[0]
             cls_scores = scores[inds, j]
             cls_boxes = boxes[inds, j*4:(j+1)*4]
             top_inds = np.argsort(-cls_scores)[:max_per_image]
