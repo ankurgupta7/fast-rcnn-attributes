@@ -1,0 +1,1 @@
+170.27 170.27 305.07 808.80 is_male has_long_sleeves has_jeans has_long_pants

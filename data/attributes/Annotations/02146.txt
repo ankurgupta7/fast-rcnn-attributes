@@ -1,0 +1,1 @@
+76.66 77.30 181.18 365.02 is_male has_t-shirt has_jeans has_long_pants

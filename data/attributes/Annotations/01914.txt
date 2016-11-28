@@ -1,0 +1,1 @@
+78.70 0.00 95.53 170.13 is_male has_glasses

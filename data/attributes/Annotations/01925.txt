@@ -1,0 +1,1 @@
+80.26 80.26 211.26 355.25 is_male has_long_sleeves

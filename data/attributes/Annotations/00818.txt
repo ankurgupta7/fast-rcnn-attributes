@@ -1,0 +1,1 @@
+138.46 138.46 302.88 634.60 is_male has_glasses has_t-shirt has_shorts

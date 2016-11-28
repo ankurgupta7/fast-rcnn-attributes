@@ -1,0 +1,1 @@
+23.72 58.82 292.18 414.55 is_male has_t-shirt has_jeans has_long_pants

@@ -1,0 +1,1 @@
+136.10 136.10 493.56 399.90 is_male has_hat has_long_pants

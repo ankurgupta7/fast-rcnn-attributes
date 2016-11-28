@@ -1,0 +1,1 @@
+157.71 157.71 484.59 625.09 has_glasses has_t-shirt has_long_sleeves has_long_pants

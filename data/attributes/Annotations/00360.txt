@@ -1,0 +1,1 @@
+155.55 155.55 228.46 738.85 is_male has_hat has_t-shirt has_shorts

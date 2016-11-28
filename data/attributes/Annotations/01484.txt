@@ -1,0 +1,1 @@
+117.03 0.00 170.41 525.62 has_t-shirt has_jeans has_long_pants

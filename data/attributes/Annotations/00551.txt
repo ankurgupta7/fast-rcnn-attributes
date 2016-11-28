@@ -1,0 +1,1 @@
+0.00 149.95 241.09 752.69 is_male has_t-shirt has_long_pants

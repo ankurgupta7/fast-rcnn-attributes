@@ -1,0 +1,1 @@
+19.64 125.22 323.12 572.44 has_long_hair has_glasses has_t-shirt has_jeans has_long_pants

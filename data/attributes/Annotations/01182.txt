@@ -1,0 +1,1 @@
+9.43 62.59 295.13 343.96 is_male has_long_sleeves

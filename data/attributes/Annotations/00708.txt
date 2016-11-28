@@ -1,0 +1,1 @@
+161.05 161.05 291.13 774.27 is_male has_hat has_long_sleeves has_long_pants

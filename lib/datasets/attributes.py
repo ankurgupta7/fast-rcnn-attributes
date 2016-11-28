@@ -15,7 +15,7 @@ import scipy.io as sio
 import utils.cython_bbox
 import cPickle
 import subprocess
-
+import math
 
 class attributes(imdb):
     def __init__(self, image_set, devkit_path):
@@ -26,15 +26,15 @@ class attributes(imdb):
         self._data_path = os.path.join(self._devkit_path, '')
 
         self._classes = ('__background__', # always index 0
-                         'blue',
-                         'green',
-                         'yellow',
-                         'cat',
-                         'tiger',
-                         'flower',
-                         'tree',
-                         'jelly',
-                         'water')
+                         'is_male',
+                         'has_long_hair',
+                         'has_glasses',
+                         'has_hat',
+                         'has_t-shirt',
+                         'has_long_sleeves',
+                         'has_shorts',
+                         'has_jeans',
+                         'has_long_pants')
 
         self._class_to_ind = dict(zip(self.classes, xrange(self.num_classes)))
         self._image_ext = '.jpg'
@@ -204,7 +204,7 @@ class attributes(imdb):
         filename = os.path.join(self._data_path, 'Annotations', index + '.txt')
 
         ifs = open(filename, 'r')
-
+        print filename
         entries = []
         num_gt_classes = 0
         while True:
@@ -213,11 +213,11 @@ class attributes(imdb):
             if len(L) == 0:
                 break
             S = L.split()
-
-            minx = int(S[0])
-            miny = int(S[1])
-            maxx = int(S[2])
-            maxy = int(S[3])
+            print S[0]
+            minx = int(math.floor(float(S[0])))
+            miny = int(math.floor(float(S[1])))
+            maxx = int(math.floor(float(S[2])))
+            maxy = int(math.floor(float(S[3])))
 
             # print S
             # Parse label supporting possible spaces with multiple words

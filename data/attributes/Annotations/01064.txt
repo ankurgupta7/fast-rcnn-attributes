@@ -1,0 +1,1 @@
+93.20 93.20 316.21 319.54 is_male has_hat has_t-shirt

@@ -1,0 +1,1 @@
+85.70 62.33 490.84 545.38 is_male has_long_pants

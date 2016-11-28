@@ -1,0 +1,1 @@
+99.13 99.02 351.32 428.94 is_male has_hat has_jeans has_long_pants

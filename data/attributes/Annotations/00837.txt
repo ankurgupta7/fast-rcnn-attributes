@@ -1,0 +1,1 @@
+168.20 168.20 289.55 743.05 has_t-shirt has_long_sleeves has_long_pants

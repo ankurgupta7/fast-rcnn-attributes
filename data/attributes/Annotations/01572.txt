@@ -1,0 +1,1 @@
+153.95 120.03 271.37 725.40 is_male has_hat has_t-shirt has_long_sleeves has_jeans has_long_pants

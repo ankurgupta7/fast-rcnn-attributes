@@ -1,0 +1,1 @@
+160.98 160.91 255.98 785.60 is_male has_glasses has_hat has_t-shirt has_shorts

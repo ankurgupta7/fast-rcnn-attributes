@@ -1,0 +1,1 @@
+102.04 95.35 381.32 331.03 is_male has_hat has_long_sleeves

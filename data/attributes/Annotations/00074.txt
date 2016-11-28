@@ -1,0 +1,1 @@
+111.20 111.20 440.20 348.49 is_male has_hat has_t-shirt has_long_sleeves

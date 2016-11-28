@@ -1,0 +1,1 @@
+116.10 116.10 261.21 627.64 has_glasses has_long_sleeves has_jeans has_long_pants

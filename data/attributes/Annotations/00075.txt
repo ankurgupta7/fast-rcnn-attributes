@@ -1,0 +1,1 @@
+113.03 113.03 307.73 517.28 is_male has_glasses has_hat has_t-shirt has_jeans has_long_pants

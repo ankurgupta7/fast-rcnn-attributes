@@ -1,0 +1,1 @@
+141.11 93.38 282.21 672.33 is_male has_t-shirt has_jeans has_long_pants

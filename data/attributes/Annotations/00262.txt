@@ -1,0 +1,1 @@
+119.06 119.06 243.23 479.65 is_male has_long_sleeves has_long_pants

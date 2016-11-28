@@ -1,0 +1,1 @@
+155.53 155.53 194.42 718.32 is_male has_glasses has_long_sleeves has_long_pants

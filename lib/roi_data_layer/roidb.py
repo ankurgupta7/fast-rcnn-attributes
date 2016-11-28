@@ -20,11 +20,14 @@ def prepare_roidb(imdb):
     """
     roidb = imdb.roidb
     for i in xrange(len(imdb.image_index)):
+        print '****'
+        print i
         roidb[i]['image'] = imdb.image_path_at(i)
         # need gt_overlaps as a dense array for argmax
         gt_overlaps = roidb[i]['gt_overlaps'].toarray()
         # max overlap with gt over classes (columns)
         max_overlaps = gt_overlaps.max(axis=1)
+        # print max_overlaps
         # gt class that had the max overlap
         max_classes = gt_overlaps.argmax(axis=1)
         roidb[i]['max_classes'] = max_classes
@@ -45,7 +48,14 @@ def add_bbox_regression_targets(roidb):
     num_images = len(roidb)
     # Infer number of classes from the number of columns in gt_overlaps
     num_classes = roidb[0]['gt_overlaps'].shape[1]
+
+    # import pdb
+
     for im_i in xrange(num_images):
+        # print im_i
+        # if im_i == 24:
+        #     pdb.set_trace()
+
         rois = roidb[im_i]['boxes']
         max_overlaps = roidb[im_i]['max_overlaps']
         max_classes = roidb[im_i]['max_classes']
@@ -60,6 +70,8 @@ def add_bbox_regression_targets(roidb):
     for im_i in xrange(num_images):
         targets = roidb[im_i]['bbox_targets']
         for cls in xrange(1, num_classes):
+            # import pdb
+            # pdb.set_trace()
             cls_inds = np.where(targets[:, 0] == cls)[0]
             if cls_inds.size > 0:
                 class_counts[cls] += cls_inds.size
@@ -70,6 +82,7 @@ def add_bbox_regression_targets(roidb):
     stds = np.sqrt(squared_sums / class_counts - means ** 2)
 
     # Normalize targets
+
     for im_i in xrange(num_images):
         targets = roidb[im_i]['bbox_targets']
         for cls in xrange(1, num_classes):
@@ -81,15 +94,21 @@ def add_bbox_regression_targets(roidb):
     # (the predicts will need to be unnormalized and uncentered)
     return means.ravel(), stds.ravel()
 
+
 def _compute_targets(rois, overlaps, labels):
     """Compute bounding-box regression targets for an image."""
     # Ensure ROIs are floats
     rois = rois.astype(np.float, copy=False)
-
+    # import pdb
+    # pdb.set_trace()
     # Indices of ground-truth ROIs
     gt_inds = np.where(overlaps == 1)[0]
+    if not gt_inds.size > 0:
+        gt_inds = np.append(gt_inds, 1)
     # Indices of examples for which we try to make predictions
     ex_inds = np.where(overlaps >= cfg.TRAIN.BBOX_THRESH)[0]
+    if not ex_inds.size > 0:
+        ex_inds = np.append(ex_inds, 1)
 
     # Get IoU overlap between each ex ROI and gt ROI
     ex_gt_overlaps = utils.cython_bbox.bbox_overlaps(rois[ex_inds, :],
@@ -97,7 +116,13 @@ def _compute_targets(rois, overlaps, labels):
 
     # Find which gt ROI each ex ROI has max overlap with:
     # this will be the ex ROI's gt target
-    gt_assignment = ex_gt_overlaps.argmax(axis=1)
+    print '###@@@###'
+    print ex_gt_overlaps
+    try:
+        gt_assignment = ex_gt_overlaps.argmax(axis=1)
+    except Exception as e:
+        gt_assignment = np.array([1], dtype=np.uint32)
+
     gt_rois = rois[gt_inds[gt_assignment], :]
     ex_rois = rois[ex_inds, :]
 

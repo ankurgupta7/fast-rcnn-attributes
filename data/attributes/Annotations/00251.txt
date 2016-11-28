@@ -1,0 +1,1 @@
+6.35 106.20 241.45 511.03 is_male has_glasses has_jeans has_long_pants

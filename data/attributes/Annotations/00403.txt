@@ -1,0 +1,1 @@
+163.12 163.12 287.60 641.73 is_male has_t-shirt has_shorts

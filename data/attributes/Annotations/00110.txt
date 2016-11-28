@@ -1,0 +1,1 @@
+145.43 145.43 185.65 799.33 is_male has_glasses has_hat has_t-shirt

@@ -1,0 +1,1 @@
+156.33 157.00 249.63 816.98 has_glasses has_hat has_long_sleeves has_long_pants

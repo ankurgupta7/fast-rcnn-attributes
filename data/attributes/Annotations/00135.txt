@@ -1,0 +1,1 @@
+96.27 96.27 292.38 342.29 is_male has_long_sleeves has_long_pants

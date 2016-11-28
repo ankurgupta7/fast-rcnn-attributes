@@ -1,0 +1,1 @@
+151.87 151.87 193.01 775.19 is_male has_t-shirt has_shorts

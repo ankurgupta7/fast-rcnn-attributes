@@ -1,0 +1,1 @@
+138.20 138.38 276.62 700.78 is_male has_t-shirt has_shorts

@@ -1,0 +1,1 @@
+116.35 117.05 203.51 568.41 is_male has_glasses has_hat has_long_pants

@@ -1,0 +1,1 @@
+97.53 97.61 348.49 185.86 is_male has_long_hair has_hat has_long_sleeves

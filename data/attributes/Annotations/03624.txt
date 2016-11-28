@@ -1,0 +1,1 @@
+134.45 134.45 667.23 415.13 is_male has_t-shirt has_jeans has_long_pants

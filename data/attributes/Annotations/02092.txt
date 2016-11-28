@@ -1,0 +1,1 @@
+138.62 138.62 399.21 615.45 is_male has_glasses has_hat

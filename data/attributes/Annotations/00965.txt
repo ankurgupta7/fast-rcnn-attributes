@@ -1,0 +1,1 @@
+127.00 127.00 261.14 523.71 is_male has_long_hair has_long_sleeves

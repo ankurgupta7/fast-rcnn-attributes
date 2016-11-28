@@ -1,0 +1,1 @@
+104.81 104.81 513.37 598.93 is_male has_t-shirt has_long_sleeves

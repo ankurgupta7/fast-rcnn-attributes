@@ -1,0 +1,1 @@
+152.19 152.19 243.14 781.39 is_male has_glasses has_hat has_t-shirt

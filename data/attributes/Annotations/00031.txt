@@ -1,0 +1,1 @@
+123.84 96.14 291.67 737.31 has_long_sleeves has_jeans has_long_pants

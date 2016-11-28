@@ -1,0 +1,1 @@
+72.38 72.38 198.82 332.59 is_male has_glasses has_hat has_long_sleeves

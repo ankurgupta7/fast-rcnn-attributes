@@ -1,0 +1,1 @@
+61.88 93.79 256.24 218.53 is_male has_glasses has_t-shirt

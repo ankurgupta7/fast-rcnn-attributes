@@ -1,0 +1,1 @@
+154.44 154.44 245.03 773.71 is_male has_glasses has_long_pants

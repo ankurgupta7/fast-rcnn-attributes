@@ -1,0 +1,1 @@
+143.31 143.18 313.43 594.94 is_male has_glasses has_long_sleeves has_jeans has_long_pants

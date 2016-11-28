@@ -1,0 +1,1 @@
+170.54 136.23 312.41 802.65 is_male has_hat has_t-shirt

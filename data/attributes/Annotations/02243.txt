@@ -1,0 +1,1 @@
+117.69 117.69 235.38 650.09 is_male has_t-shirt has_long_pants

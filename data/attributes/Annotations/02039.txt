@@ -1,0 +1,1 @@
+160.32 160.32 249.39 794.50 is_male has_long_sleeves has_jeans has_long_pants

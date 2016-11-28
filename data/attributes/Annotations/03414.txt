@@ -1,0 +1,1 @@
+132.54 46.31 289.03 550.92 has_hat has_jeans has_long_pants

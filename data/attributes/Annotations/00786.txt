@@ -1,0 +1,1 @@
+160.93 160.93 303.52 776.11 has_glasses has_hat has_shorts

@@ -1,0 +1,1 @@
+51.78 0.00 273.12 278.97 is_male has_glasses has_hat has_long_sleeves

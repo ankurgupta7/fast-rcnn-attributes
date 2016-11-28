@@ -1,5 +1,7 @@
 data/attributes/results/*
+*.jpg
 *.pyc
+
 .ipynb_checkpoints
 utils/*.c
 utils/*.so

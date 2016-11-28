@@ -1,0 +1,1 @@
+145.20 145.20 540.93 657.65 is_male has_glasses has_t-shirt

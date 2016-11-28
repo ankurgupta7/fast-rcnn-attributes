@@ -1,0 +1,1 @@
+129.81 67.14 279.32 582.81 is_male has_hat has_long_sleeves has_long_pants

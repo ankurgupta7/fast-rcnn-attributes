@@ -1,0 +1,1 @@
+1.37 138.73 259.56 626.15 is_male has_hat has_shorts

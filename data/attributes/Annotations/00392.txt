@@ -1,0 +1,1 @@
+190.71 190.71 441.51 791.58 is_male has_hat has_t-shirt has_jeans has_long_pants

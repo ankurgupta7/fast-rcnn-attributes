@@ -1,0 +1,1 @@
+67.37 67.58 111.19 265.62 is_male has_glasses has_hat

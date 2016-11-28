@@ -1,0 +1,1 @@
+167.53 167.53 376.95 795.77 has_hat has_long_sleeves has_jeans has_long_pants

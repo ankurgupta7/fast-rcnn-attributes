@@ -1,0 +1,1 @@
+150.54 111.31 361.40 634.66 is_male has_hat has_shorts

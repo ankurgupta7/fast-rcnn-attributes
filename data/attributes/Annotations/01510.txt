@@ -1,0 +1,1 @@
+151.12 151.12 232.81 727.03 is_male has_hat has_jeans has_long_pants

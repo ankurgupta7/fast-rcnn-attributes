@@ -1,0 +1,1 @@
+127.43 127.43 324.82 547.19 is_male has_hat has_t-shirt has_jeans has_long_pants

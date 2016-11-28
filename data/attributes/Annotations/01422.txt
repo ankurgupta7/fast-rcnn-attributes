@@ -1,0 +1,1 @@
+161.28 161.28 354.81 732.67 is_male has_hat has_t-shirt

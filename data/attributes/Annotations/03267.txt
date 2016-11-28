@@ -1,0 +1,1 @@
+23.05 36.36 259.08 475.14 is_male has_glasses has_t-shirt has_jeans has_long_pants

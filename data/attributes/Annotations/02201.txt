@@ -1,0 +1,1 @@
+73.16 73.16 264.31 328.03 is_male has_glasses has_t-shirt

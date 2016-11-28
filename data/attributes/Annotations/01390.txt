@@ -1,0 +1,1 @@
+4.65 58.13 351.09 521.98 has_glasses has_long_sleeves has_jeans has_long_pants

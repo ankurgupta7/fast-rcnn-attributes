@@ -1,0 +1,1 @@
+106.75 107.00 242.61 550.26 is_male has_hat has_jeans has_long_pants

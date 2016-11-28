@@ -1,0 +1,1 @@
+115.87 115.87 289.69 564.89 is_male has_jeans has_long_pants

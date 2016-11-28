@@ -35,6 +35,7 @@ def get_minibatch(roidb, num_classes):
     bbox_loss_blob = np.zeros(bbox_targets_blob.shape, dtype=np.float32)
     all_overlaps = []
     for im_i in xrange(num_images):
+        print im_i
         labels, overlaps, im_rois, bbox_targets, bbox_loss \
             = _sample_rois(roidb[im_i], fg_rois_per_image, rois_per_image,
                            num_classes)
@@ -72,11 +73,13 @@ def _sample_rois(roidb, fg_rois_per_image, rois_per_image, num_classes):
     """Generate a random sample of RoIs comprising foreground and background
     examples.
     """
-    # added by ankur to debug this
-
-
+    import pdb
+    pdb.set_trace()
     # label = class RoI has max overlap with
     labels = roidb['max_classes']
+    print '!@#!'
+    print labels
+
     # labels = nu
     overlaps = roidb['max_overlaps']
     rois = roidb['boxes']
@@ -165,6 +168,10 @@ def _get_bbox_regression_labels(bbox_target_data, num_classes):
     bbox_targets = np.zeros((clss.size, 4 * num_classes), dtype=np.float32)
     bbox_loss_weights = np.zeros(bbox_targets.shape, dtype=np.float32)
     inds = np.where(clss > 0)
+    import pdb
+    pdb.set_trace()
+    if inds.__len__() < 2:
+        inds = np.append(inds, 0)
     for ind in inds:
         cls = clss[ind]
         start = 4 * cls

@@ -1,0 +1,1 @@
+161.45 161.45 235.81 728.67 is_male has_t-shirt has_jeans has_long_pants
