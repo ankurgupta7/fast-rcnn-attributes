@@ -1,4 +1,7 @@
 f = open('labels.txt')
+ft = open('../ImageSets/train.txt', 'w')
+
+j = 0
 while True:
     l = f.readline()
     if len(l) == 0:
@@ -13,7 +16,15 @@ while True:
             output_str += labels[i - 5] + ' '
     output_str = output_str[0:-1]
     output_str = output_str.replace('NaN NaN NaN NaN', '0.0 0.0 20.0 20.0')
+    if len(output_str.split()) < 5:
+        print 'ignoring file' + str(j)
+	j+=1
+        continue
+    output_str = output_str + '\n'
     f1 = open('../Annotations/'+ words[0].replace('jpg','txt'), 'w')
     f1.write(output_str)
     f1.close()
+    ft.write('{:05d}\n'.format(int(words[0].replace('.jpg','\n'))))
+    j+=1
     #raw_input('Proceed?')
+ft.close()

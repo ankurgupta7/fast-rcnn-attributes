@@ -19,7 +19,7 @@ import pprint
 import numpy as np
 import sys
 
-def parse_args():
+def parse_args(arguments):
     """
     Parse input arguments
     """
@@ -49,15 +49,17 @@ def parse_args():
                         help='set config keys', default=None,
                         nargs=argparse.REMAINDER)
 
-    if len(sys.argv) == 1:
+    if len(arguments) == 1: #len(sys.argv) == 1 and
         parser.print_help()
         sys.exit(1)
 
-    args = parser.parse_args()
+    args = parser.parse_args(arguments)
     return args
 
 if __name__ == '__main__':
-    args = parse_args()
+    arguments = ['--gpu', '2', '--solver', 'models/attributes/vgg/fast_rcnn/solver.prototxt', '--weights', 'data/imagenet_models/vgg.v2.caffemodel', '--imdb', 'attributes_train', '--iters', '10']
+
+    args = parse_args(arguments)
 
     print('Called with args:')
     print(args)

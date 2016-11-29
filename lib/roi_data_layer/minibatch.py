@@ -73,8 +73,8 @@ def _sample_rois(roidb, fg_rois_per_image, rois_per_image, num_classes):
     """Generate a random sample of RoIs comprising foreground and background
     examples.
     """
-    import pdb
-    pdb.set_trace()
+    # import pdb
+    # pdb.set_trace()
     # label = class RoI has max overlap with
     labels = roidb['max_classes']
     print '!@#!'
@@ -109,6 +109,8 @@ def _sample_rois(roidb, fg_rois_per_image, rois_per_image, num_classes):
 
     # The indices that we're selecting (both fg and bg)
     keep_inds = np.append(fg_inds, bg_inds)
+    if len(keep_inds) == 0:
+        np.append(keep_inds, 0)
     # Select sampled values from various arrays:
     labels = labels[keep_inds]
     # labels = np.zeros(num_classes, dtype=np.int32)
@@ -118,10 +120,13 @@ def _sample_rois(roidb, fg_rois_per_image, rois_per_image, num_classes):
     labels[fg_rois_per_this_image:] = 0
     overlaps = overlaps[keep_inds]
     rois = rois[keep_inds]
+    bbox_targets = np.zeros((roidb['bbox_targets'][keep_inds, :].size, 4 * num_classes), dtype=np.float32)
+    bbox_loss_weights = np.zeros(bbox_targets.shape, dtype=np.float32)
 
-    bbox_targets, bbox_loss_weights = \
-            _get_bbox_regression_labels(roidb['bbox_targets'][keep_inds, :],
-                                        num_classes)
+    if labels.size > 0:
+        bbox_targets, bbox_loss_weights = \
+                _get_bbox_regression_labels(roidb['bbox_targets'][keep_inds, :],
+                                            num_classes)
 
     return labels, overlaps, rois, bbox_targets, bbox_loss_weights
 
@@ -168,8 +173,8 @@ def _get_bbox_regression_labels(bbox_target_data, num_classes):
     bbox_targets = np.zeros((clss.size, 4 * num_classes), dtype=np.float32)
     bbox_loss_weights = np.zeros(bbox_targets.shape, dtype=np.float32)
     inds = np.where(clss > 0)
-    import pdb
-    pdb.set_trace()
+    # import pdb
+    # pdb.set_trace()
     if inds.__len__() < 2:
         inds = np.append(inds, 0)
     for ind in inds:
