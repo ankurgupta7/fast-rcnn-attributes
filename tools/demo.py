@@ -24,12 +24,16 @@ import scipy.io as sio
 import caffe, os, sys, cv2
 import argparse
 
-CLASSES = ('__background__',
-           'aeroplane', 'bicycle', 'bird', 'boat',
-           'bottle', 'bus', 'car', 'cat', 'chair',
-           'cow', 'diningtable', 'dog', 'horse',
-           'motorbike', 'person', 'pottedplant',
-           'sheep', 'sofa', 'train', 'tvmonitor')
+CLASSES = {'__background__':0, # always index 0
+             'is_male':1,
+             'has_long_hair':2,
+             'has_glasses':3,
+             'has_hat':4,
+             'has_t-shirt':5,
+             'has_long_sleeves':6,
+             'has_shorts':7,
+             'has_jeans':8,
+             'has_long_pants':9}
 
 NETS = {'vgg16': ('VGG16',
                   'vgg16_fast_rcnn_iter_40000.caffemodel'),
@@ -78,7 +82,7 @@ def demo(net, image_name, classes):
     box_file = os.path.join(cfg.ROOT_DIR, 'data', 'demo',
                             image_name + '_boxes.mat')
     obj_proposals = sio.loadmat(box_file)['boxes']
-
+    obj_proposals = obj_proposals[0][0]
     # Load the demo image
     im_file = os.path.join(cfg.ROOT_DIR, 'data', 'demo', image_name + '.jpg')
     im = cv2.imread(im_file)
@@ -92,22 +96,28 @@ def demo(net, image_name, classes):
            '{:d} object proposals').format(timer.total_time, boxes.shape[0])
 
     # Visualize detections for each class
-    CONF_THRESH = 0.8
-    NMS_THRESH = 0.3
-    for cls in classes:
-        cls_ind = CLASSES.index(cls)
-        cls_boxes = boxes[:, 4*cls_ind:4*(cls_ind + 1)]
-        cls_scores = scores[:, cls_ind]
-        keep = np.where(cls_scores >= CONF_THRESH)[0]
-        cls_boxes = cls_boxes[keep, :]
-        cls_scores = cls_scores[keep]
-        dets = np.hstack((cls_boxes,
-                          cls_scores[:, np.newaxis])).astype(np.float32)
-        keep = nms(dets, NMS_THRESH)
-        dets = dets[keep, :]
-        print 'All {} detections with p({} | box) >= {:.1f}'.format(cls, cls,
-                                                                    CONF_THRESH)
-        vis_detections(im, cls, dets, thresh=CONF_THRESH)
+    CONF_THRESH = 0.1
+    NMS_THRESH = 0.8
+    #for cls in classes:
+    cls_ind_all = [CLASSES[x] for x in classes]
+    # boxes_shape = boxes[:, 4*0:4*(0 + 1)].shape
+    cls_boxes = boxes[:, 4*cls_ind_all[0]:4*(cls_ind_all[0] + 1)]
+    for cls_ind in cls_ind_all[1:]:
+        cls_boxes =  np.hstack((cls_boxes,boxes[:, 4*cls_ind:4*(cls_ind + 1)]))
+    cls_scores = scores[:, cls_ind_all]
+    # keep = np.where(cls_scores >= CONF_THRESH)[0]
+    keep = np.where((cls_scores >= CONF_THRESH).all(axis=1))[0]
+    cls_boxes = cls_boxes[keep, :]
+    cls_scores = cls_scores[keep,:]
+    # dets = np.hstack((cls_boxes, cls_scores)).astype(np.float32)
+    dets = np.hstack((cls_boxes,
+                      cls_scores[:])).astype(np.float32)
+
+    keep = nms(dets, NMS_THRESH)
+    dets = dets[keep, :]
+    print 'All {} detections with p({} | box) >= {:.1f}'.format(classes, classes,
+                                                                CONF_THRESH)
+    vis_detections(im, classes, dets, thresh=CONF_THRESH)
 
 def parse_args():
     """Parse input arguments."""
@@ -126,11 +136,11 @@ def parse_args():
 
 if __name__ == '__main__':
     args = parse_args()
-
-    prototxt = os.path.join(cfg.ROOT_DIR, 'models', NETS[args.demo_net][0],
-                            'test.prototxt')
-    caffemodel = os.path.join(cfg.ROOT_DIR, 'data', 'fast_rcnn_models',
-                              NETS[args.demo_net][1])
+    # / home / agupta82 / fast - rcnn / models / attributes / vgg / fast_rcnn / test.prototxt
+    prototxt = os.path.join(cfg.ROOT_DIR, 'models','attributes','vgg',
+                            'fast_rcnn', 'test.prototxt')
+    caffemodel = os.path.join(cfg.ROOT_DIR, 'output', 'default',
+                              'train','vgg_cnn_m_1024_fast_rcnn_iter_40000.caffemodel')
 
     if not os.path.isfile(caffemodel):
         raise IOError(('{:s} not found.\nDid you run ./data/scripts/'
@@ -146,11 +156,18 @@ if __name__ == '__main__':
     print '\n\nLoaded network {:s}'.format(caffemodel)
 
     print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-    print 'Demo for data/demo/000004.jpg'
-    demo(net, '000004', ('car',))
+    print 'Demo for data/demo/00003.jpg'
+    demo(net, '00003', ('is_male',
+             # 'has_long_hair',
+             # 'has_glasses',
+             # 'has_hat',
+             #  'has_t-shirt',
+              'has_long_sleeves',
+             # 'has_shorts',
+             #  'has_jeans',
+             # 'has_long_pants',
+                        ))
 
     print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-    print 'Demo for data/demo/001551.jpg'
-    demo(net, '001551', ('sofa', 'tvmonitor'))
 
     plt.show()

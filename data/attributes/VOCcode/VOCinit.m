@@ -87,7 +87,7 @@ else
                      'tree'
                      'jelly'
                      'water' };
-
+end
 VOCopts.nclasses=length(VOCopts.classes);	
 
 VOCopts.poses={...

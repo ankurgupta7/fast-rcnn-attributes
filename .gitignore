@@ -1,4 +1,7 @@
 data/attributes/results/*
+caffe_bak/
+log.txt
+*.mat
 *.jpg
 *.pyc
 

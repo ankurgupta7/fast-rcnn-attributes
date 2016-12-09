@@ -243,9 +243,7 @@ class attributes(imdb):
                 ix += 1
             boxes[i,:] = [entries[i][0],entries[i][1],entries[i][2],entries[i][3]]
         overlaps = scipy.sparse.csr_matrix(overlaps)
-        print '''
-        !@#$@%#^&*^^%$#
-        '''
+        print filename
         print gt_classes
         return {'boxes' : boxes,
                 'gt_classes': gt_classes,

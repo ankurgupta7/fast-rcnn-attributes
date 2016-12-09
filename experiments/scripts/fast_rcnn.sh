@@ -65,6 +65,6 @@ set -x
 
 time ./tools/test_net.py --gpu $1 \
   --def models/${PT_DIR}/${NET}/fast_rcnn/test.prototxt \
-  --net ${NET_FINAL} \
+  --net ${NET} \
   --imdb ${TEST_IMDB} \
   ${EXTRA_ARGS}

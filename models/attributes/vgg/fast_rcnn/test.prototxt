@@ -311,7 +311,7 @@ layer {
 }
 layer {
   name: "cls_prob"
-  type: "Softmax"
+  type: "Sigmoid"
   bottom: "cls_score"
   top: "cls_prob"
 }

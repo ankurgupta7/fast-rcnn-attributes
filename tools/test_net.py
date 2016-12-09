@@ -65,6 +65,8 @@ if __name__ == '__main__':
 
     print('Using config:')
     pprint.pprint(cfg)
+    args.caffemodel = os.path.join(cfg.ROOT_DIR, 'output', 'default',
+                              'train','vgg_cnn_m_1024_fast_rcnn_iter_40000.caffemodel')
 
     while not os.path.exists(args.caffemodel) and args.wait:
         print('Waiting for {} to exist...'.format(args.caffemodel))
