@@ -290,24 +290,24 @@ layer {
     }
   }
 }
-#layer {
-#  name: "label_reshape"
-#  type: "Reshape"
-#  bottom: "label"
-#  top: "label_reshaped"
-#  reshape_param {
-#    shape {
-#    dim: 0
-#    dim: -1
-#    }
-#  }
-#}
+layer {
+  name: "label_reshape"
+  type: "Reshape"
+  bottom: "labels"
+  top: "label_reshaped"
+  reshape_param {
+    shape {
+    dim: 0
+    dim: -1
+    }
+  }
+}
 layer {
   name: "loss_cls"
   type: "SigmoidCrossEntropyLoss"
   bottom: "cls_score"
-  bottom: "labels"
-#  bottom: "labels_reshaped"
+#  bottom: "labels"
+  bottom: "label_reshaped"
   top: "loss_cls"
   loss_weight: 1
 }

@@ -96,22 +96,23 @@ def demo(net, image_name, classes):
            '{:d} object proposals').format(timer.total_time, boxes.shape[0])
 
     # Visualize detections for each class
-    CONF_THRESH = 0.1
-    NMS_THRESH = 0.8
+    CONF_THRESH = 0.2
+    NMS_THRESH = 0.001
     #for cls in classes:
     cls_ind_all = [CLASSES[x] for x in classes]
     # boxes_shape = boxes[:, 4*0:4*(0 + 1)].shape
     cls_boxes = boxes[:, 4*cls_ind_all[0]:4*(cls_ind_all[0] + 1)]
-    for cls_ind in cls_ind_all[1:]:
-        cls_boxes =  np.hstack((cls_boxes,boxes[:, 4*cls_ind:4*(cls_ind + 1)]))
+    # for cls_ind in cls_ind_all[1:]:
+    #     cls_boxes =  np.hstack((cls_boxes,boxes[:, 4*cls_ind:4*(cls_ind + 1)]))
     cls_scores = scores[:, cls_ind_all]
     # keep = np.where(cls_scores >= CONF_THRESH)[0]
     keep = np.where((cls_scores >= CONF_THRESH).all(axis=1))[0]
     cls_boxes = cls_boxes[keep, :]
     cls_scores = cls_scores[keep,:]
     # dets = np.hstack((cls_boxes, cls_scores)).astype(np.float32)
-    dets = np.hstack((cls_boxes,
-                      cls_scores[:])).astype(np.float32)
+    cls_scores_0 = cls_scores[:, 0]
+    dets = np.hstack(( cls_boxes,
+                       cls_scores_0[:,np.newaxis])).astype(np.float32)
 
     keep = nms(dets, NMS_THRESH)
     dets = dets[keep, :]
@@ -140,7 +141,7 @@ if __name__ == '__main__':
     prototxt = os.path.join(cfg.ROOT_DIR, 'models','attributes','vgg',
                             'fast_rcnn', 'test.prototxt')
     caffemodel = os.path.join(cfg.ROOT_DIR, 'output', 'default',
-                              'train','vgg_cnn_m_1024_fast_rcnn_iter_40000.caffemodel')
+                              'train','vgg_cnn_m_1024_fast_rcnn_iter_100000.caffemodel')
 
     if not os.path.isfile(caffemodel):
         raise IOError(('{:s} not found.\nDid you run ./data/scripts/'
@@ -157,7 +158,8 @@ if __name__ == '__main__':
 
     print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
     print 'Demo for data/demo/00003.jpg'
-    demo(net, '00003', ('is_male',
+    demo(net, '00003', (
+             'is_male',
              # 'has_long_hair',
              # 'has_glasses',
              # 'has_hat',

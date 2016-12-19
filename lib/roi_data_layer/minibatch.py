@@ -47,9 +47,10 @@ def get_minibatch(roidb, num_classes):
         rois_blob = np.vstack((rois_blob, rois_blob_this_image))
 
         # Add to labels, bbox targets, and bbox loss blobs
-        labels_sigmoid = np.zeros( num_classes, dtype=np.float32)
-        labels_sigmoid[labels] = 1.0
-        labels_blob = np.vstack((labels_blob, labels_sigmoid))
+        for cls in labels:
+            labels_sigmoid = np.zeros( num_classes, dtype=np.float32)
+            labels_sigmoid[cls] = 1.0
+            labels_blob = np.vstack((labels_blob, labels_sigmoid))
         bbox_targets_blob = np.vstack((bbox_targets_blob, bbox_targets))
         bbox_loss_blob = np.vstack((bbox_loss_blob, bbox_loss))
         all_overlaps = np.hstack((all_overlaps, overlaps))
@@ -57,7 +58,7 @@ def get_minibatch(roidb, num_classes):
     # For debug visualizations
     # _vis_minibatch(im_blob, rois_blob, labels_blob, all_overlaps)
     # labels_blob_sigmoid = np.zeros()
-    import pdb
+    # import pdb
     # pdb.set_trace()
     blobs = {'data': im_blob,
              'rois': rois_blob,
@@ -120,13 +121,13 @@ def _sample_rois(roidb, fg_rois_per_image, rois_per_image, num_classes):
     labels[fg_rois_per_this_image:] = 0
     overlaps = overlaps[keep_inds]
     rois = rois[keep_inds]
-    bbox_targets = np.zeros((roidb['bbox_targets'][keep_inds, :].size, 4 * num_classes), dtype=np.float32)
-    bbox_loss_weights = np.zeros(bbox_targets.shape, dtype=np.float32)
+    # bbox_targets = np.zeros((roidb['bbox_targets'][keep_inds, :].size, 4 * num_classes), dtype=np.float32)
+    # bbox_loss_weights = np.zeros(bbox_targets.shape, dtype=np.float32)
 
-    if labels.size > 0:
-        bbox_targets, bbox_loss_weights = \
-                _get_bbox_regression_labels(roidb['bbox_targets'][keep_inds, :],
-                                            num_classes)
+    # if labels.size > 0:
+    bbox_targets, bbox_loss_weights = \
+            _get_bbox_regression_labels(roidb['bbox_targets'][keep_inds, :],
+                                        num_classes)
 
     return labels, overlaps, rois, bbox_targets, bbox_loss_weights
 

@@ -24,6 +24,7 @@ void SmoothL1LossLayer<Dtype>::LayerSetUp(
 template <typename Dtype>
 void SmoothL1LossLayer<Dtype>::Reshape(
   const vector<Blob<Dtype>*>& bottom, const vector<Blob<Dtype>*>& top) {
+  printf("entering smooth l1 loss");
   LossLayer<Dtype>::Reshape(bottom, top);
   CHECK_EQ(bottom[0]->channels(), bottom[1]->channels());
   CHECK_EQ(bottom[0]->height(), bottom[1]->height());

@@ -57,7 +57,7 @@ def parse_args(arguments):
     return args
 
 if __name__ == '__main__':
-    arguments = ['--gpu', '2', '--solver', 'models/attributes/vgg/fast_rcnn/solver.prototxt', '--weights', 'data/imagenet_models/vgg.v2.caffemodel', '--imdb', 'attributes_train', '--iters', '100000']
+    arguments = ['--gpu', '2', '--solver', 'models/attributes/vgg/fast_rcnn/solver.prototxt', '--weights', 'data/imagenet_models/vgg.v2.caffemodel', '--imdb', 'attributes_train', '--iters', '200000']
 
     args = parse_args(arguments)
 

@@ -228,8 +228,9 @@ class attributes(imdb):
             entries.append((minx, miny, maxx, maxy, S[4:]))
         ifs.close()
         num_objs = len(entries)
-        boxes = np.zeros((num_objs,4),dtype=np.uint16)
-        gt_classes = np.zeros((num_objs, self.num_classes), dtype=np.int32)
+        num_labels = entries[0][4].__len__()
+        boxes = np.zeros((num_objs * num_labels,4),dtype=np.uint16)
+        gt_classes = np.zeros((num_labels), dtype=np.int32)
         overlaps = np.zeros((num_objs, self.num_classes),dtype=np.float32)
 
         ix = 0
@@ -238,10 +239,10 @@ class attributes(imdb):
             # label_str
             for label in label_str:
                 cls = self._class_to_ind[label]
-                gt_classes[i,cls]= 1.0
+                gt_classes[ix]= cls
                 overlaps[i,cls] = 1.0
+                boxes[ix,:] = [entries[i][0],entries[i][1],entries[i][2],entries[i][3]]
                 ix += 1
-            boxes[i,:] = [entries[i][0],entries[i][1],entries[i][2],entries[i][3]]
         overlaps = scipy.sparse.csr_matrix(overlaps)
         print filename
         print gt_classes
