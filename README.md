@@ -1,3 +1,8 @@
+### This project is for mutl-label classification and localization of human describable attributes of an object. Still a work in progress. 
+### Authors: Ankur Gupta, Correspoding Author: Dr Austin Reiter
+
+
+## Forked README
 ### This code base is no longer maintained and exists as a historical artifact to supplement my ICCV 2015 paper. For more recent work that's faster and more accurrate, please see [Faster R-CNN](https://github.com/rbgirshick/py-faster-rcnn) (which also includes functionality for training Fast R-CNN).
 
 # *Fast* R-CNN: Fast Region-based Convolutional Networks for object detection
