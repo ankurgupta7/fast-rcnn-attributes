@@ -20,19 +20,19 @@ template <typename Dtype>
 void SigmoidCrossEntropyLossLayer<Dtype>::Reshape(
     const vector<Blob<Dtype>*>& bottom, const vector<Blob<Dtype>*>& top) {
   /** experimental debug- ankur*/
-    printf("entering SigmoidlossLayer\n");
+//    printf("entering SigmoidlossLayer\n");
   const int count = bottom[0]->count();
   const Dtype* input_data = bottom[0]->cpu_data();
-  printf("bottom0\n");
-  for (int i = 0; i < count; ++i) {
-    printf("%f, ", input_data[i]);
-  }
+//  printf("bottom0\n");
+//  for (int i = 0; i < count; ++i) {
+//    printf("%f, ", input_data[i]);
+//  }
   const int count1 = bottom[1]->count();
   const Dtype* target = bottom[1]->cpu_data();
-  printf("bottom1\n");
-  for (int i = 0; i < count1; ++i) {
-    printf("%f, ", target[i]);
-  }
+//  printf("bottom1\n");
+//  for (int i = 0; i < count1; ++i) {
+//    printf("%f, ", target[i]);
+//  }
   /*experiment ends*/
   LossLayer<Dtype>::Reshape(bottom, top);
   CHECK_EQ(bottom[0]->count(), bottom[1]->count()) <<
@@ -58,6 +58,7 @@ void SigmoidCrossEntropyLossLayer<Dtype>::Forward_cpu(
         log(1 + exp(input_data[i] - 2 * input_data[i] * (input_data[i] >= 0)));
   }
   top[0]->mutable_cpu_data()[0] = loss / num;
+//  printf("loss = %f\n", loss / num);
 }
 
 template <typename Dtype>

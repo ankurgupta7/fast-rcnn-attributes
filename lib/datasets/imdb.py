@@ -174,6 +174,7 @@ class imdb(object):
                           'gt_classes' : np.zeros((num_boxes,),
                                                   dtype=np.int32),
                           'gt_overlaps' : overlaps,
+                          'gt_sigmoid' : gt_roidb[i]['gt_overlaps'],
                           'flipped' : False})
         return roidb
 
@@ -181,11 +182,15 @@ class imdb(object):
     def merge_roidbs(a, b):
         assert len(a) == len(b)
         for i in xrange(len(a)):
+            a[i]['gt_labels_blob'] = a[i]['gt_overlaps']
+            a[i]['gt_box_blob'] = a[i]['boxes']
+
             a[i]['boxes'] = np.vstack((a[i]['boxes'], b[i]['boxes']))
             a[i]['gt_classes'] = np.hstack((a[i]['gt_classes'],
                                             b[i]['gt_classes']))
             a[i]['gt_overlaps'] = scipy.sparse.vstack([a[i]['gt_overlaps'],
                                                        b[i]['gt_overlaps']])
+
         return a
 
     def competition_mode(self, on):

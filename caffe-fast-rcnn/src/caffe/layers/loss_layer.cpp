@@ -16,7 +16,7 @@ void LossLayer<Dtype>::LayerSetUp(
 template <typename Dtype>
 void LossLayer<Dtype>::Reshape(
     const vector<Blob<Dtype>*>& bottom, const vector<Blob<Dtype>*>& top) {
-    printf("superclass loss_layer");
+//    printf("superclass loss_layer");
   CHECK_EQ(bottom[0]->num(), bottom[1]->num())
       << "The data and label should have the same number.";
   vector<int> loss_shape(0);  // Loss layers output a scalar; 0 axes.

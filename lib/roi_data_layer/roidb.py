@@ -20,8 +20,8 @@ def prepare_roidb(imdb):
     """
     roidb = imdb.roidb
     for i in xrange(len(imdb.image_index)):
-        print '****'
-        print i
+        # print '****'
+        # print i
         roidb[i]['image'] = imdb.image_path_at(i)
         # need gt_overlaps as a dense array for argmax
         gt_overlaps = roidb[i]['gt_overlaps'].toarray()
@@ -116,8 +116,8 @@ def _compute_targets(rois, overlaps, labels):
 
     # Find which gt ROI each ex ROI has max overlap with:
     # this will be the ex ROI's gt target
-    print '###@@@###'
-    print ex_gt_overlaps
+    #print '###@@@###'
+    #print ex_gt_overlaps
     try:
         gt_assignment = ex_gt_overlaps.argmax(axis=1)
     except Exception as e:

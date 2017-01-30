@@ -35,8 +35,8 @@ def get_minibatch(roidb, num_classes):
     bbox_loss_blob = np.zeros(bbox_targets_blob.shape, dtype=np.float32)
     all_overlaps = []
     for im_i in xrange(num_images):
-        print im_i
-        labels, overlaps, im_rois, bbox_targets, bbox_loss \
+        # print 'minibatch image idx', im_i
+        labels, overlaps, im_rois, bbox_targets, bbox_loss, keep_inds \
             = _sample_rois(roidb[im_i], fg_rois_per_image, rois_per_image,
                            num_classes)
 
@@ -47,10 +47,14 @@ def get_minibatch(roidb, num_classes):
         rois_blob = np.vstack((rois_blob, rois_blob_this_image))
 
         # Add to labels, bbox targets, and bbox loss blobs
+        gt_sigmoid = roidb[im_i]['gt_labels_blob'].todense()
+        # print 'overlap for this img', gt_sigmoid[keep_inds]
+        gt_boxes_blob = roidb[im_i]['gt_box_blob']
         for cls in labels:
             labels_sigmoid = np.zeros( num_classes, dtype=np.float32)
             labels_sigmoid[cls] = 1.0
             labels_blob = np.vstack((labels_blob, labels_sigmoid))
+        labels_blob[0,:] = gt_sigmoid
         bbox_targets_blob = np.vstack((bbox_targets_blob, bbox_targets))
         bbox_loss_blob = np.vstack((bbox_loss_blob, bbox_loss))
         all_overlaps = np.hstack((all_overlaps, overlaps))
@@ -78,8 +82,8 @@ def _sample_rois(roidb, fg_rois_per_image, rois_per_image, num_classes):
     # pdb.set_trace()
     # label = class RoI has max overlap with
     labels = roidb['max_classes']
-    print '!@#!'
-    print labels
+    # print 'labels in roidb {sample_rois}'
+    # print labels
 
     # labels = nu
     overlaps = roidb['max_overlaps']
@@ -129,7 +133,7 @@ def _sample_rois(roidb, fg_rois_per_image, rois_per_image, num_classes):
             _get_bbox_regression_labels(roidb['bbox_targets'][keep_inds, :],
                                         num_classes)
 
-    return labels, overlaps, rois, bbox_targets, bbox_loss_weights
+    return labels, overlaps, rois, bbox_targets, bbox_loss_weights, keep_inds
 
 def _get_image_blob(roidb, scale_inds):
     """Builds an input blob from the images in the roidb at the specified
@@ -176,14 +180,15 @@ def _get_bbox_regression_labels(bbox_target_data, num_classes):
     inds = np.where(clss > 0)
     # import pdb
     # pdb.set_trace()
-    if inds.__len__() < 2:
-        inds = np.append(inds, 0)
+    # if inds.__len__() < 2:
+    #     inds = np.append(inds, 0)
     for ind in inds:
-        cls = clss[ind]
-        start = 4 * cls
-        end = start + 4
-        bbox_targets[ind, start:end] = bbox_target_data[ind, 1:]
-        bbox_loss_weights[ind, start:end] = [1., 1., 1., 1.]
+        for dupi in range(1,num_classes):
+            cls = dupi
+            start = 4 * cls
+            end = start + 4
+            bbox_targets[ind, start:end] = bbox_target_data[ind, 1:]
+            bbox_loss_weights[ind, start:end] = [1., 1., 1., 1.]
     return bbox_targets, bbox_loss_weights
 
 def _vis_minibatch(im_blob, rois_blob, labels_blob, overlaps):
